@@ -7,9 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.0]
+### Changed
+- [PMM-3512](https://jira.percona.com/browse/PMM-3512): Switched to [kingpin](https://github.com/alecthomas/kingpin) library.
+This is a **BREAKING CHANGE** because kingpin uses `--` instead of `-` for long flags, so be careful when updating.
+- [PMM-2261](https://jira.percona.com/browse/PMM-2261) Unify common mongod and mongos server metrics, thx [@bz2](https://github.com/bz2)
+This is a **BREAKING CHANGE**. The labels of these metrics are now prefixed with just `mongodb_` rather than `mongodb_mongo[ds]_`.
+
+### Added
+- Fine grained error handling for index usage and collection stats (#128), thx [@akira-kurogane](https://github.com/akira-kurogane)
+- Introduce a docker go build that creates a mongodb_exporter binary within a container (#112), thx [@mminks](https://github.com/mminks)
+- Ability to make releases and snapshots with [GoReleaser](https://goreleaser.com/)
+
 ## [0.6.3] - 2019-02-13
 ### Added
-- PMM-3401: Added collection of TTL metrics
+- PMM-3401: Added collection of TTL metrics #127, thx [@fastest963](https://github.com/fastest963)
 - Added some new metrics:
   - `member_replication_lag`
   - `member_operational_lag`
@@ -97,7 +109,8 @@ with source code locations.
 ### Added
 - First tagged version.
 
-[Unreleased]: https://github.com/percona/mongodb_exporter/compare/v0.6.3...HEAD
+[Unreleased]: https://github.com/percona/mongodb_exporter/compare/v0.7.0...HEAD
+[0.7.0]: https://github.com/percona/mongodb_exporter/compare/v0.6.3...v0.7.0
 [0.6.3]: https://github.com/percona/mongodb_exporter/compare/v0.6.2...v0.6.3
 [0.6.2]: https://github.com/percona/mongodb_exporter/compare/v0.6.1...v0.6.2
 [0.6.1]: https://github.com/percona/mongodb_exporter/compare/v0.6.0...v0.6.1
