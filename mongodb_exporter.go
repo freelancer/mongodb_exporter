@@ -52,6 +52,7 @@ var (
 		Envar("MONGODB_URI").
 		String()
 
+	authDB   = kingpin.Flag("mongodb.authentification-database", "Specifies the database in which the user is created").Default("").String()
 	tlsF     = kingpin.Flag("mongodb.tls", "Enable tls connection with mongo server").Bool()
 	tlsCertF = kingpin.Flag("mongodb.tls-cert", "Path to PEM file that contains the certificate (and optionally also the decrypted private key in PEM format).\n"+
 		"    \tThis should include the whole certificate chain.\n"+
@@ -77,6 +78,7 @@ var (
 
 func main() {
 	initVersionInfo()
+	log.AddFlags(kingpin.CommandLine)
 	kingpin.Parse()
 
 	if *testF {
@@ -88,6 +90,7 @@ func main() {
 				TLSPrivateKeyFile:     *tlsPrivateKeyF,
 				TLSCaFile:             *tlsCAF,
 				TLSHostnameValidation: !(*tlsDisableHostnameValidationF),
+				AuthentificationDB:    *authDB,
 			},
 		)
 		if err != nil {
@@ -118,6 +121,7 @@ func main() {
 		CollectIndexUsageStats:   *collectIndexUsageF,
 		SocketTimeout:            *socketTimeoutF,
 		SyncTimeout:              *syncTimeoutF,
+		AuthentificationDB:       *authDB,
 	})
 	prometheus.MustRegister(programCollector, mongodbCollector)
 
